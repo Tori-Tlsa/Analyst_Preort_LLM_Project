@@ -12,10 +12,10 @@
 
 ### 핵심 특징
 
-- **정성 → 정량화**: Gemini 2.5 Flash LLM을 활용하여 분석가의 **확신도(Confidence Score)**를 0-100점으로 정량화
+- **비정형데이터(리포트) → 정량화**: Gemini 2.5 Flash API LLM을 활용하여 분석가의 확신도(Confidence Score)를 0-100점으로 정량화
 - **Firm-Quarter 집계**: 개별 리포트를 기업-분기 단위로 집계하여 **LLM_avg**, **LLM_std** (의견 불일치) 생성
 - **Robust Error Handling**: yfinance API의 Rate Limit, 유효하지 않은 티커, 결측치 보간 등 실무적 에러 처리
-- **Ablation Study**: 전통 재무 변수만 사용한 모델 대비 LLM 변수 추가 시 R² 개선도 정량화 (0.427 → 0.463)
+- **Ablation Study**: 전통 재무 변수만 사용한 모델 대비 LLM 변수 추가 시 R² 개선도 정량화 
 
 ### 데이터 소스
 
@@ -344,4 +344,5 @@ ANALYSIS_CONFIG:
 | **환경** | python-dotenv |
 
 ---
+
 
