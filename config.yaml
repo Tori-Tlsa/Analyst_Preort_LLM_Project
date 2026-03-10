@@ -1,0 +1,53 @@
+# Analyst Report ML Pipeline Configuration
+# 2026-03-01
+
+PROJECT:
+  name: "Analyst Report ML Pipeline"
+  description: "LLM-based analyst report quantification for stock volatility prediction"
+
+# Gemini API 설정
+LLM_CONFIG:
+  model: "gemini-2.5-flash"
+  api_key: "${GEMINI_API_KEY}"  # 환경변수에서 로드 권장
+
+  # LLM 점수 범위 설정
+  score_range:
+    min: 0
+    max: 100
+
+  # 추출 지표: 확신도(Confidence) 단일화
+  # 분석가의 전망에 대한 확신도 수준을 0~100점으로 정량화
+  metrics:
+    - name: "confidence_score"
+      description: "분석가의 확신도 수준 (Confidence Level)"
+      label: "확신도"
+      range:
+        min: 0        # 불확실 (헤징 표현 다수, 전망 모호)
+        max: 100      # 매우 확실 (명확한 근거, 강한 표현)
+
+    - name: "reasoning"
+      description: "확신도에 대한 판단 근거 (Reasoning)"
+      label: "근거"
+      format: "text"
+
+# 데이터 수집 설정
+CRAWLER_CONFIG:
+  start_date: "20240101"
+  end_date: "20241231"
+  naver_finance_url: "https://finance.naver.com/research/company_list.nhn"
+  krx_code_url: "http://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13"
+  pdf_download_url: "https://ssl.pstatic.net/imgstock/upload/research/company/"
+
+# 데이터 경로
+DATA_PATHS:
+  raw_data: "./data/raw"
+  processed_data: "./data/processed"
+  reports: "./data/reports"
+
+# 분석 설정
+ANALYSIS_CONFIG:
+  volatility_windows:
+    - quarter
+    - last_month
+    - six_month_pre
+  stock_exchange: "KS"  # 한국 거래소
